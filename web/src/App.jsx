@@ -1,13 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./components/ui/Layout"
+import ProductsPage from "./pages/ProductsPage"
 
 
 function App() {
 
   return (
-    <>
-      <div>
-        <p className=''>Ola mundo</p>
-      </div>
-    </>
+    <BrowserRouter>
+      <Layout>    {/* Layout com navbar acima das paginas */}
+        <Routes>
+          {/* Aqui vão as rotas do projeto */}
+          <Route path="/" element={<ProductsPage />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   )
 }
 
