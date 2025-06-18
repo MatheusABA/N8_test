@@ -1,34 +1,54 @@
+import { useState } from "react"
 import { useCart } from "../../context/CartContext"
-import { ShoppingCartIcon } from "@heroicons/react/24/outline"
+import { ShoppingCartIcon, CheckCircleIcon } from "@heroicons/react/24/outline"
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  // Função para normalizar os nomes das variáveis dos fornecedores
+  const nome = product.nome || product.name || "Produto sem nome"
+  const preco = product.preco || product.price || 0
+  const imagem = product.imagem || (product.gallery && product.gallery[0])
+  const categoria = product.categoria || (product.details && product.details.adjective)
+
+
+  const handleAddToCart = () => {
+    addToCart(product)
+    setAdded(true)
+    setTimeout(() => {
+      setAdded(false)
+    }, 1500) // Reseta o estado após 1.5 segundos
+  }
 
   return (
     <div className="group relative bg-white rounded-lg shadow p-4 flex flex-col">
       <img
-        alt={product.nome || product.name}
-        src={product.imagem}
+        alt={nome}
+        src={imagem}
         className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75"
       />
       <div className="mt-4 flex justify-between items-center">
         <div>
-          <h3 className="text-sm text-gray-700 font-semibold">
-            {product.nome || product.name}
-          </h3>
-          <p className="mt-1 text-sm text-gray-500">{product.categoria}</p>
+          <h3 className="text-sm text-gray-700 font-semibold">{nome}</h3>
+          <p className="mt-1 text-sm text-gray-500">{categoria}</p>
           <p className="text-sm font-medium text-gray-900">
-            R$ {Number(product.preco).toFixed(2)}
+            R$ {Number(preco).toFixed(2)}
           </p>
         </div>
         <button
-          onClick={() => addToCart(product)}
-          className="ml-2 p-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white"
+          onClick={handleAddToCart}
+          className={`ml-2 p-2 rounded-full ${added ? "bg-green-500" : "bg-indigo-600 hover:bg-indigo-700"} text-white transition-colors`}
           title="Adicionar ao carrinho"
         >
-          <ShoppingCartIcon className="w-5 h-5" />
+          {added ? <CheckCircleIcon className="w-5 h-5" /> : <ShoppingCartIcon className="w-5 h-5" />}
         </button>
       </div>
+      {added && (
+        <span className="text-green-600 text-xs mt-2 flex items-center">
+          <CheckCircleIcon className="w-4 h-4 mr-1" /> Adicionado ao carrinho!
+        </span>
+      )}
     </div>
   )
 }
