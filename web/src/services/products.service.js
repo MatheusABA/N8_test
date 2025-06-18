@@ -21,6 +21,15 @@ class ProductsService {
     return data
   }
 
+  static async fetchBrazilianProductById(id) {
+    const res = await fetch(`https://616d6bdb6dacbb001794ca17.mockapi.io/devnology/brazilian_provider/${id}`)
+    return await res.json()
+  }
+
+  static async fetchEuropeanProductById(id) {
+    const res = await fetch(`https://616d6bdb6dacbb001794ca17.mockapi.io/devnology/european_provider/${id}`)
+    return await res.json()
+  }
 
 }
 

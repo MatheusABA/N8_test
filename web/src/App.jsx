@@ -3,21 +3,36 @@ import Layout from "./components/ui/Layout"
 import ProductsPage from "./pages/ProductsPage"
 import { CartProvider } from "./context/CartContext"
 import ShoppingCartPage from "./pages/ShoppingCartPage"
-
+import ProductDetailsPage from "./pages/ProductDetailsPage"
+import CartCheckout from "./pages/CartCheckout"
 
 function App() {
 
+  if (!localStorage.getItem("anonUserId")) {
+    localStorage.setItem("anonUserId", crypto.randomUUID());
+  }
+
+  /**
+    Salva o ID do usuário anônimo no contexto do carrinho no localStorage
+    Isso garante que o ID seja persistente entre as sessões do usuário
+    e que o carrinho possa ser recuperado mesmo após o fechamento do navegador
+    Assim como obter suas compras do servidor quando o usuário voltar
+  */
+  const anonUserId = localStorage.getItem("anonUserId");
+
   return (
-    <CartProvider>
+    <CartProvider anonUserId={anonUserId}>
       <BrowserRouter>
         <Layout>    {/* Layout com navbar acima das paginas */}
           <Routes>
-            {/* Aqui vão as rotas do projeto */}
             <Route path="/" element={<ProductsPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/cart" element={<ShoppingCartPage />} />
             <Route path="/orders" element={<div>Em breve</div>} />
-            
+            <Route path="/products/:provider/:id" element={<ProductDetailsPage />} />
+            <Route path="/checkout" element={<CartCheckout />} />
+
+            <Route path="*" element={<div className="text-center p-40 font-bold">404 - Página não encontrada</div>} />
           </Routes>
         </Layout>
       </BrowserRouter>  
