@@ -4,7 +4,8 @@ import ProductsPage from "./pages/ProductsPage"
 import { CartProvider } from "./context/CartContext"
 import ShoppingCartPage from "./pages/ShoppingCartPage"
 import ProductDetailsPage from "./pages/ProductDetailsPage"
-import CartCheckout from "./pages/CartCheckout"
+import CartCheckoutPage from "./pages/CartCheckoutPage"
+import UserSalesPage from "./pages/UserSalesPage"
 
 function App() {
 
@@ -28,9 +29,9 @@ function App() {
             <Route path="/" element={<ProductsPage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/cart" element={<ShoppingCartPage />} />
-            <Route path="/orders" element={<div>Em breve</div>} />
+            <Route path="/orders" element={<UserSalesPage />} />
             <Route path="/products/:provider/:id" element={<ProductDetailsPage />} />
-            <Route path="/checkout" element={<CartCheckout />} />
+            <Route path="/checkout" element={<CartCheckoutPage />} />
 
             <Route path="*" element={<div className="text-center p-40 font-bold">404 - Página não encontrada</div>} />
           </Routes>
