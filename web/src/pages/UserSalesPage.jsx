@@ -10,8 +10,7 @@ export default function UserSalesPage() {
     async function fetchSales() {
       setLoading(true)
       try {
-        const response = await UserService.getUserSales(anonUserId);
-        const data = await response.json()
+        const data = await UserService.getUserSales(anonUserId);
         setSales(data)
       } catch (err) {
         setSales([])

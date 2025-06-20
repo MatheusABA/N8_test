@@ -1,9 +1,10 @@
-
+// Obs: Trocar endpoint 
+import { API_URL } from "../utils/api"
 
 class UserService {
 
   static async payCheckout(payload) {
-    const response = await fetch("http://localhost:3000/sales", {
+    const response = await fetch(`${API_URL}/sales`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -15,7 +16,7 @@ class UserService {
   }
 
   static async getUserSales(anonUserId) {
-    const response = await fetch(`http://localhost:3000/sales?anonUserId=${anonUserId}`)
+    const response = await fetch(`${API_URL}/sales?anonUserId=${anonUserId}`)
     if (!response.ok) {
       throw new Error("Erro ao buscar compras do usuário")
     }

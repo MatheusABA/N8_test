@@ -64,7 +64,7 @@ export default function ProductDetailsPage() {
 
   const handleAddToCart = (e) => {
     e.preventDefault()
-    addToCart(product)
+    addToCart(product, provider)
     setAdded(true)
     setTimeout(() => setAdded(false), 1500)
   }

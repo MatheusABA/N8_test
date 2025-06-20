@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:mobile/utils/user_utils.dart';
+import 'package:mobile/utils/api_constants.dart';
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({super.key});
@@ -24,7 +25,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
     setState(() => loading = true);
     final anonUserId = await getOrCreateUserId();
     final response = await http.get(
-      Uri.parse('http://192.168.1.12:3000/sales?anonUserId=$anonUserId'),
+      Uri.parse('${ApiConstants.baseUrl}/sales?anonUserId=$anonUserId'),
     );
     if (response.statusCode == 200) {
       setState(() {

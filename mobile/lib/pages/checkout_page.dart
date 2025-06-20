@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/utils/user_utils.dart';
 import 'dart:convert';
+import 'package:mobile/utils/api_constants.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List cart;
@@ -44,7 +45,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     };
 
     final response = await http.post(
-      Uri.parse('http://192.168.1.12:3000/sales'),
+      Uri.parse('${ApiConstants.baseUrl}/sales'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(body),
     );

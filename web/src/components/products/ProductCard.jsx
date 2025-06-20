@@ -17,7 +17,7 @@ export default function ProductCard({ product, provider }) {
     // Previne o comportamento padrão do link de redirecionamento
     e.preventDefault()
     e.stopPropagation()
-    addToCart(product)
+    addToCart(product, provider)
     setAdded(true)
     setTimeout(() => setAdded(false), 1500)
   }

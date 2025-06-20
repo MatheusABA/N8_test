@@ -18,20 +18,22 @@ export function CartProvider({ children, anonUserId }) {
   //   }
   // }, [cart])
 
-  function addToCart(product) {
-    console.log("Adicionando ao carrinho:", product)
-    setCart((prev) => {
-      const exists = prev.find((item) => item.id === product.id)
-      if (exists) {
-        // Se já existe, aumenta a quantidade
-        return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        )
-      }
-      // Se não existe, adiciona com quantity 1
-      return [...prev, { ...product, quantity: 1 }]
-    })
-  }
+function addToCart(product, provider) {
+  const produtoComProvider = { ...product, provider }
+  setCart((prevCart) => {
+    const index = prevCart.findIndex(
+      (item) => item.id === produtoComProvider.id && item.provider === produtoComProvider.provider
+    )
+    if (index !== -1) {
+      // Produto já está no carrinho, atualize a quantidade
+      const updatedCart = [...prevCart]
+      updatedCart[index].quantity += 1
+      return updatedCart
+    }
+    // Produto novo, adicione ao carrinho
+    return [...prevCart, { ...produtoComProvider, quantity: 1 }]
+  })
+}
 
   function removeFromCart(productId) {
     setCart((prev) => prev.filter((item) => item.id !== productId))
