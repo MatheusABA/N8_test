@@ -93,7 +93,7 @@ Este projeto é um e-commerce simples, criado para fins de teste técnico, com f
 - npm ou yarn
 - Flutter (recomendado 3.10+)
 - Android Studio para emulador ou dispositivo físico com depuração USB
-
+- Criar um arquivo .env no backend-api com a url presente no .env_example
 ---
 
 > **Atenção:**  
